@@ -19,5 +19,145 @@
                 }
             }
         ]
+    },
+    {
+        "qid": "0.1.1",
+        "type": "slider",
+        "q": {
+            "fr": "Nombre de pages ?",
+            "en": "Number of pages?"
+        },
+        "min": 1,
+        "max": 15,
+        "step": 1,
+        "price": 100
+    },
+    {
+        "qid": "0.1.2",
+        "type": "button",
+        "q": {
+            "fr": "Quel type de site web ?",
+            "en": "What kind of website?"
+        },
+        "desc": {
+            "fr": "Un site vitrine a un contenu fixe qui ne pourra pas changer une fois le site terminé mais son prix est moins élevé. Un site dynamque évolue et contient des données (comptes utilisateurs, articles, newsletter, etc). Le prix dépend de votre demande.",
+            "en": "A showcase is fixed and cannot be changed once it has been finished but it is cheaper. A dynamic website will evolve and contains data (users, articles, newsletter, etc). Its price will depend on your request."
+        },
+        "decision": true,
+        "c": [
+            {"text": {
+                "fr": "Vitrine",
+                "en": "Showcase"
+            }, "price": [200,500]},
+            {"text": {
+                "fr": "Dynamique",
+                "en": "Dynamic"
+            }, "price": [500,1000]}
+        ]
+    },
+    {
+        "qid": "0.1.2.1.1",
+        "type": "button",
+        "q": {
+            "fr": "Faut-il un formulaire  de contact ?",
+            "en": "Would you need a contact form?"
+        },
+        "desc": {
+            "fr": "Cette fonctionnalité permet aux visiteurs de votre site de vous contacter.",
+            "en": "This fonctionnality will allow your website's visitors to contact you."
+        },
+        "c": [
+            {"text": {
+                "fr": "Oui",
+                "en": "Yes"
+            }, "price": [200,300]},
+            {"text": {
+                "fr": "Non",
+                "en": "No"
+            }}
+        ]
+    },
+    {
+        "qid": "0.1.2.2.1",
+        "type": "button",
+        "q": {
+            "fr": "Faut-il un accès administrateur restreint ?",
+            "en": "Would you need an admin secure mode?"
+        },
+        "desc": {
+            "fr": "Cet accès vous permettra d'avoir un impact sur votre site : modifier son contenu, voir les utilisateurs inscrits, etc.",
+            "en": "This acces will allow you to have an impact on your website: update its content, see users list, etc."
+        },
+        "c": [
+            {"text": {
+                "fr": "Oui",
+                "en": "Yes"
+            }, "price": [500,1500]},
+            {"text": {
+                "fr": "Non",
+                "en": "No"
+            }}
+        ]
+    },
+    {
+        "qid": "0.1.2.2.2",
+        "type": "button",
+        "q": {
+            "fr": "Faut-il une base de données ?",
+            "en": "Would you need a database?"
+        },
+        "desc": {
+            "fr": "Une base de données permet de stocker tous types d'informations. Si vous ne savez pas, répondez Non.",
+            "en": "A database allows to store all kind of data. If you don't know, answer No."
+        },
+        "decision": true,
+        "c": [
+            {"text": {
+                "fr": "Oui",
+                "en": "Yes"
+            }, "price": 500},
+            {"text": {
+                "fr": "Non",
+                "en": "No"
+            }}
+        ]
+    },
+    {
+        "qid": "0.1.2.2.2.1.1",
+        "type": "slider",
+        "q": {
+            "fr": "[Optionnel] Nombre de tables dans la base de données ?",
+            "en": "[Optional] Number of tables in the database?"
+        },
+        "desc": {
+            "fr": "Si vous ne savez pas, répondez 1.",
+            "en": "If you don't know, answer 1."
+        },
+        "min": 1,
+        "max": 30,
+        "step": 1,
+        "price": 75
+    },
+    {
+        "qid": "0.1.2.2.2.1.2",
+        "type": "button",
+        "q": {
+            "fr": "Les utilisateurs peuvent-ils créer un compte ?",
+            "en": "Are users allow to create an account ?"
+        },
+        "desc": {
+            "fr": "",
+            "en": ""
+        },
+        "c": [
+            {"text": {
+                "fr": "Oui",
+                "en": "Yes"
+            }, "price": 1000},
+            {"text": {
+                "fr": "Non",
+                "en": "No"
+            }}
+        ]
     }
 ]
