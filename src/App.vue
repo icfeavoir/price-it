@@ -14,7 +14,7 @@
 						<Range :min="range.min" :max="range.max" :step="range.step" v-model="rangeValue" v-on:range-changed="rangeChanged"/>
 					</span>
 					<span  v-for="(button, index) in buttons" :key="'button-' + index">
-						<Button :id="button.id" :help="button.help" v-on:click.native="buttonClicked(button.id, button.price, button.num, button.back || false)">
+						<Button :id="button.id" v-on:click.native="buttonClicked(button.id, button.price, button.num, button.back || false)">
 							<span v-html="button.text"></span>
 						</Button>
 					</span>
@@ -48,7 +48,7 @@
 				<div class="col-lg-12 text-center">
 					<p v-if="errorForm != null" class="error-form">{{ errorForm }}</p>
 					<button class="button-choice" v-on:click="restart()" :disabled="buttonSendDisable"><i class="fa fa-undo"></i> {{ $t('restart') }}</button>
-					<button class="button-choice" type="submit" :disabled="buttonSendDisable"  v-on:click="sendForm()"><i class="fa fa-paper-plane"></i> {{ buttonSendText }}</button>
+					<button class="button-choice" type="submit" :disabled="buttonSendDisable" v-on:click="sendForm()"><i class="fa fa-paper-plane"></i> {{ buttonSendText }}</button>
 				</div>
 			</div>
 		</div>
@@ -116,7 +116,7 @@ export default {
 			sendSucceed: false,			// affichage final
 
 			buttonSendDisable: false,
-			buttonSendText: 'form.send-form',
+			buttonSendText: i18n.t('form.send-form'),
 
 			firstName: "",
 			lastName: "",
@@ -132,7 +132,7 @@ export default {
 		}
 	},
 	methods: {
-		nextChoice: function(currentQuestion) {
+		nextChoice: function(currentQuestion, now = false) {
 			// on récupère la question suivante
 			var prop = this.getQuestionById(currentQuestion)
 
@@ -182,9 +182,7 @@ export default {
 			var buttons = []
 			for (var i in prop.c) {
 				var count = Number(i)
-				console.log("lang is " + this.lang)
-				var choice = prop.c[i].text[this.lang] || "no text"
-				var help = prop.c[i].help || null
+					var choice = prop.c[i].text[this.lang] || "no text"
 				var price = prop.c[i].price || 0
 				var back = prop.c[i].back || false
 
@@ -217,7 +215,6 @@ export default {
 				buttons.push({
 					'id': nextQuestion,
 					'text': choice,
-					'help': help,
 					'price': price,
 					'num': buttonNum,
 					'back': back,
@@ -238,7 +235,7 @@ export default {
 				it.description = it.description[it.lang] 
 				it.ranges = slider
 				it.buttons = buttons
-			}, TIME)
+			}, now ? 0 : TIME)
 		},
 
 		setRangeValue: function(val) {
@@ -339,7 +336,7 @@ export default {
 			this.sendSucceed = false			// affichage final
 
 			this.buttonSendDisable = false
-			this.buttonSendText = 'form.send-form'
+			this.buttonSendText = i18n.t('form.send-form')
 
 			this.setPercent(0)
 			this.nextChoice(this.currentQuestion)
@@ -397,7 +394,7 @@ export default {
 		sendForm: function() {
 			// on bloque le bouton d'envoie en attendant qu'il s'envoie
 			this.buttonSendDisable = true
-			this.buttonSendText = 'form.sending'
+			this.buttonSendText = i18n.t('form.sending')
 
 			for (var qid in this.questionToAnswer) {
 				var resNum = this.questionToAnswer[qid]
@@ -405,18 +402,20 @@ export default {
 			}
 
 			// verif des champs
-			var fields = ["Prénom", "Nom", "Email", "Message"]
+			var fields = [i18n.t("form.firstName"), i18n.t("form.lastName"), i18n.t("form.email"), i18n.t("form.your-msg")]
 			var fieldsVar = [this.firstName, this.lastName, this.email, this.msg]
 			for (var i in fieldsVar) {
 				if (fieldsVar[i] === "") {
-					this.errorForm = "Veuillez saisir le champ " + fields[i]
+					this.buttonSendDisable = false
+					this.errorForm = i18n.t("form.field-missing", {field: fields[i]})
 					return
 				}
 			}
 
 			// verif email
 			if (!this.validateEmail(this.email)) {
-				this.errorForm = "Email invalide"
+				this.buttonSendDisable = false
+				this.errorForm = i18n.t("form.invalid-email")
 				return
 			}
 
@@ -498,7 +497,8 @@ export default {
 					it.sendPriceRequest = false
 					it.sendSucceed = true
 				} else {
-					alert('Une erreur est survenue, merci de réessayer plus tard.')
+					this.buttonSendDisable = true
+					alert(i18n.t('form.error'))
 				}
 			})
 		},
@@ -521,8 +521,11 @@ export default {
 
 		changeLang(lang) {
 			this.lang = lang
-			this.nextChoice(this.currentQuestion)
 			i18n.locale = lang
+
+			// les petits bugs durant les changements de langue
+			this.nextChoice(this.currentQuestion, true)
+			this.errorForm = ''
 		}
 	}
 }
