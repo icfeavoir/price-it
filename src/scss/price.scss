@@ -319,3 +319,26 @@ input[type="range"] {
         background-color: #2825ff;
     }
 }
+
+// HEADER
+.header {
+    background-color: #25A3FF;
+    padding-top: 10px;
+
+    div {
+        display: inline-block;
+        width: 50%;
+
+        &.back {
+            padding-left: 30px;
+            a {
+                color: white;
+                font-family: 'Montserrat';
+            }
+        }
+        &.flag {
+            text-align: right;
+            padding-right: 30px;
+        }
+    }
+}

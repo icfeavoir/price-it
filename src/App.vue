@@ -1,6 +1,9 @@
 <template>
-
 	<div>
+		<div class="header">
+			<div class="back"><a href="pierre-and-kevin.fr">{{ $t('back') }}</a></div>
+			<div class="flag"><a href="#" @click="changeLang($t('change-lang'))" v-html="$t('flag')"></a></div>
+		</div>
 		<div class="big-container container-choices" v-if="!questionsDone">
 			<div class="vertical-center choices">
 				<p class="question">{{ question }}</p>
@@ -22,29 +25,29 @@
 
 		<div class="big-container" v-if="showPrices">
 			<div class="vertical-center final final-new">
-				<p>Votre devis est compris entre {{ this.priceMin }}€ et {{ this.priceMax }}€</p>
-				<button class="button-choice" v-on:click="restart()"><i class="fa fa-undo"></i> Recommencer</button>
-				<button class="button-choice" v-on:click="goToSendForm()"><i class="fa fa-paper-plane"></i> Envoyer la demande de devis</button>
+				<p>{{ $t('final-price', {priceMin: this.priceMin, priceMax: this.priceMax}) }}</p>
+				<button class="button-choice" v-on:click="restart()"><i class="fa fa-undo"></i> {{ $t("restart") }}</button>
+				<button class="button-choice" v-on:click="goToSendForm()"><i class="fa fa-paper-plane"></i> {{ $t("go-to-form") }}</button>
 			</div>
 		</div>
 
 		<div class="big-container total" v-if="sendPriceRequest">
 			<div class="request request-new row">
 				<div class="col-lg-12">
-					<p>Les informations que vous avez saisies sont enregistrées. Merci de remplir les informations ci-dessous et de les accompagner d'un message expliquant plus en détail votre projet.</p><br>
+					<p>{{ $t("form.info") }}</p><br>
 				</div>
 				<div class="col-lg-6">
-					<div class="input-bloc"><label>Prénom</label><br><input name="firstName" v-model="firstName" required placeholder="Prénom" /></div>
-					<div class="input-bloc"><label>Nom</label><br><input name="lastName" v-model="lastName" required placeholder="Nom" /></div>
-					<div class="input-bloc"><label>Email</label><br><input name="mail" v-model="email" required placeholder="Email" /></div>
+					<div class="input-bloc"><label>{{ $t('form.firstName')}}</label><br><input name="firstName" v-model="firstName" required :placeholder="$t('form.firstName')" /></div>
+					<div class="input-bloc"><label>{{ $t('form.lastName') }}</label><br><input name="lastName" v-model="lastName" required :placeholder="$t('form.lastName')" /></div>
+					<div class="input-bloc"><label>{{ $t('form.email') }}</label><br><input name="mail" v-model="email" required :placeholder="$t('form.email')" /></div>
 				</div>
 				<div class="col-lg-6">
-					<div class="input-bloc"><label>Votre message</label><br><textarea rows="8" class="msg" v-model="userMsg"></textarea></div>
+					<div class="input-bloc"><label>{{ $t('form.your-msg') }}</label><br><textarea rows="8" class="msg" v-model="userMsg"></textarea></div>
 				</div>
 				
 				<div class="col-lg-12 text-center">
 					<p v-if="errorForm != null" class="error-form">{{ errorForm }}</p>
-					<button class="button-choice" v-on:click="restart()" :disabled="buttonSendDisable"><i class="fa fa-undo"></i> Recommencer</button>
+					<button class="button-choice" v-on:click="restart()" :disabled="buttonSendDisable"><i class="fa fa-undo"></i> {{ $t('restart') }}</button>
 					<button class="button-choice" type="submit" :disabled="buttonSendDisable"  v-on:click="sendForm()"><i class="fa fa-paper-plane"></i> {{ buttonSendText }}</button>
 				</div>
 			</div>
@@ -53,8 +56,8 @@
 		<div class="big-container" v-if="sendSucceed">
 			<div class="vertical-center request text-center">
 				<div class="col-lg-12">
-					<p>Devis envoyé avec succès, nous vous répondrons sous les meilleurs délais.</p>
-					<a href="pierre-and-kevin.fr"><button class="button-choice">Retour sur le site</button></a>
+					<p>{{ $t('form.confirm') }}</p>
+					<a href="pierre-and-kevin.fr"><button class="button-choice">{{ $t('back') }}</button></a>
 				</div>
 			</div>
 		</div>
@@ -66,6 +69,8 @@
 import Button from './components/Button.vue'
 import Range from './components/Range.vue'
 import data from './price.json'
+import 'flag-icon-css/css/flag-icon.css'
+import i18n from './i18n';
 
 const TIME = 1200
 
@@ -81,7 +86,7 @@ export default {
 
 	data() {
 		return {
-			lang: "en",
+			lang: "fr",
 
 			data: data,
 			currentQuestion: "0",
@@ -111,7 +116,7 @@ export default {
 			sendSucceed: false,			// affichage final
 
 			buttonSendDisable: false,
-			buttonSendText: 'Envoyer',
+			buttonSendText: 'form.send-form',
 
 			firstName: "",
 			lastName: "",
@@ -177,6 +182,7 @@ export default {
 			var buttons = []
 			for (var i in prop.c) {
 				var count = Number(i)
+				console.log("lang is " + this.lang)
 				var choice = prop.c[i].text[this.lang] || "no text"
 				var help = prop.c[i].help || null
 				var price = prop.c[i].price || 0
@@ -333,7 +339,7 @@ export default {
 			this.sendSucceed = false			// affichage final
 
 			this.buttonSendDisable = false
-			this.buttonSendText = 'Envoyer'
+			this.buttonSendText = 'form.send-form'
 
 			this.setPercent(0)
 			this.nextChoice(this.currentQuestion)
@@ -391,7 +397,7 @@ export default {
 		sendForm: function() {
 			// on bloque le bouton d'envoie en attendant qu'il s'envoie
 			this.buttonSendDisable = true
-			this.buttonSendText = "Envoi..."
+			this.buttonSendText = 'form.sending'
 
 			for (var qid in this.questionToAnswer) {
 				var resNum = this.questionToAnswer[qid]
@@ -511,6 +517,12 @@ export default {
 		validateEmail: function(email) {
 			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			return re.test(String(email).toLowerCase());
+		},
+
+		changeLang(lang) {
+			this.lang = lang
+			this.nextChoice(this.currentQuestion)
+			i18n.locale = lang
 		}
 	}
 }
