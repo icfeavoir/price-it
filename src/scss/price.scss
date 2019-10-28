@@ -328,9 +328,9 @@ input[type="range"] {
 
     div {
         display: inline-block;
-        width: 50%;
-
+        
         &.back {
+            width: 90%;
             padding-left: 30px;
             a {
                 border: 1px solid white;
@@ -341,6 +341,7 @@ input[type="range"] {
             }
         }
         &.flag {
+            width: 10%;
             font-size: 20px;
             text-align: right;
             padding-right: 30px;

@@ -7,13 +7,13 @@ const messages =
 {
   "fr": {
     "change-lang": "en",
-    "back": "Retour",
+    "back": "Retour à Pierre & Kévin",
     "flag": "<span class='flag-icon flag-icon-gb'></span>",
     "final-price": "Votre devis est compris entre {priceMin}€ et {priceMax}€",
     "restart": "Recommencer",
     "go-to-form": "Faire la demande gratuite !",
     "form": {
-      "info": "Les informations que vous avez saisies sont enregistrées. Merci de remplir les informations ci-dessous et de les accompagner d'un message expliquant plus en détail votre projet.",
+      "info": "Les informations que vous avez saisies sont enregistrées. Merci de remplir le formulaire ci-dessous et de les accompagner d'un message expliquant plus en détails votre projet.",
       "firstName": "Prénom",
       "lastName": "Nom",
       "email": "Email",
@@ -28,7 +28,7 @@ const messages =
   },
   "en": {
     "change-lang": "fr",
-    "back": "Back",
+    "back": "Back to Pierre & Kévin",
     "flag": "<span class='flag-icon flag-icon-fr'></span>",
     "final-price": "Your estimate is included between {priceMin}€ and {priceMax}€",
     "restart": "Restart",

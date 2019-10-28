@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div class="header">
-			<div class="back"><a href="pierre-and-kevin.fr">{{ $t('back') }}</a></div>
+			<div class="back"><a href="http://pierre-and-kevin.fr">{{ $t('back') }}</a></div>
 			<div class="flag"><a href="#" @click="changeLang($t('change-lang'))" v-html="$t('flag')"></a></div>
 		</div>
 		<div class="big-container container-choices" v-if="!questionsDone">
@@ -57,7 +57,7 @@
 			<div class="vertical-center request text-center">
 				<div class="col-lg-12">
 					<p>{{ $t('form.confirm') }}</p>
-					<a href="pierre-and-kevin.fr"><button class="button-choice">{{ $t('back') }}</button></a>
+					<a href="http://pierre-and-kevin.fr"><button class="button-choice">{{ $t('back') }}</button></a>
 				</div>
 			</div>
 		</div>
@@ -492,7 +492,7 @@ export default {
 			}
 
 			const it = this
-			$.post("http://mailer.pierre-leroy.fr", params, function(e) {
+			$.post("https://mailer.pierre-leroy.fr", params, function(e) {
 				if (e === "1") {
 					it.sendPriceRequest = false
 					it.sendSucceed = true
@@ -501,6 +501,8 @@ export default {
 					alert(i18n.t('form.error'))
 				}
 			})
+
+			this.dbSave()
 		},
 
 		removeLastNum: function(id) {
@@ -526,7 +528,41 @@ export default {
 			// les petits bugs durant les changements de langue
 			this.nextChoice(this.currentQuestion, true)
 			this.errorForm = ''
-		}
+		},
+
+		dbSave() {
+			var choices = []
+			for (var i in this.questionToAnswer) {
+				var question = this.getQuestionById(i)
+				var rId = this.questionToAnswer[i]
+				var response
+
+				if (question.type === "slider") {
+					response = rId
+				} else {
+					response = question.c[rId].text[this.lang]
+				}
+
+				choices.push({
+					qId: i,
+					rId: rId,
+					question: question.q[this.lang],
+					response: response,
+				})
+			}
+
+			var params = {
+				data: {
+					firstName: this.firstName,
+					lastName: this.lastName,
+					email: this.email,
+					msg: this.userMsg,
+				},
+				choices: choices
+			}
+
+			$.post("https://db.devis.pierre-and-kevin.fr", params)
+		},
 	}
 }
 

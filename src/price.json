@@ -4,7 +4,7 @@
         "type": "button",
         "q": {
             "fr": "Devis rapide !",
-            "en": "Get you price!"
+            "en": "Get you estimate!"
         },
         "desc": {
             "fr": "En quelques clics seulement, choississez ce dont vous avez envie et obtenez une fourchette de prix !",
@@ -22,18 +22,6 @@
     },
     {
         "qid": "0.1.1",
-        "type": "slider",
-        "q": {
-            "fr": "Nombre de pages ?",
-            "en": "Number of pages?"
-        },
-        "min": 1,
-        "max": 15,
-        "step": 1,
-        "price": 100
-    },
-    {
-        "qid": "0.1.2",
         "type": "button",
         "q": {
             "fr": "Quel type de site web ?",
@@ -48,15 +36,15 @@
             {"text": {
                 "fr": "Vitrine",
                 "en": "Showcase"
-            }, "price": [200,500]},
+            }, "price": [400,1000]},
             {"text": {
                 "fr": "Dynamique",
                 "en": "Dynamic"
-            }, "price": [500,1000]}
+            }, "price": [1000,3000]}
         ]
     },
     {
-        "qid": "0.1.2.1.1",
+        "qid": "0.1.1.1.1",
         "type": "button",
         "q": {
             "fr": "Faut-il un formulaire  de contact ?",
@@ -70,7 +58,7 @@
             {"text": {
                 "fr": "Oui",
                 "en": "Yes"
-            }, "price": [200,300]},
+            }, "price": [300,600]},
             {"text": {
                 "fr": "Non",
                 "en": "No"
@@ -78,7 +66,25 @@
         ]
     },
     {
-        "qid": "0.1.2.2.1",
+        "qid": "0.1.1.1.2",
+        "type": "button",
+        "q": {
+            "fr": "Voulez-vous votre site disponible en plusieurs langues ?",
+            "en": "Would you need a multi-languages website?"
+        },
+        "c": [
+            {"text": {
+                "fr": "Oui",
+                "en": "Yes"
+            }, "price": [400,1000]},
+            {"text": {
+                "fr": "Non",
+                "en": "No"
+            }}
+        ]
+    },
+    {
+        "qid": "0.1.1.2.1",
         "type": "button",
         "q": {
             "fr": "Faut-il un accès administrateur restreint ?",
@@ -92,7 +98,7 @@
             {"text": {
                 "fr": "Oui",
                 "en": "Yes"
-            }, "price": [500,1500]},
+            }, "price": [500,2000]},
             {"text": {
                 "fr": "Non",
                 "en": "No"
@@ -100,7 +106,25 @@
         ]
     },
     {
-        "qid": "0.1.2.2.2",
+        "qid": "0.1.1.2.2",
+        "type": "button",
+        "q": {
+            "fr": "Voulez-vous votre site disponible en plusieurs langues ?",
+            "en": "Would you need a multi-languages website?"
+        },
+        "c": [
+            {"text": {
+                "fr": "Oui",
+                "en": "Yes"
+            }, "price": [400,1000]},
+            {"text": {
+                "fr": "Non",
+                "en": "No"
+            }}
+        ]
+    },
+    {
+        "qid": "0.1.1.2.3",
         "type": "button",
         "q": {
             "fr": "Faut-il une base de données ?",
@@ -115,7 +139,7 @@
             {"text": {
                 "fr": "Oui",
                 "en": "Yes"
-            }, "price": 500},
+            }, "price": [1000, 1500]},
             {"text": {
                 "fr": "Non",
                 "en": "No"
@@ -123,23 +147,7 @@
         ]
     },
     {
-        "qid": "0.1.2.2.2.1.1",
-        "type": "slider",
-        "q": {
-            "fr": "[Optionnel] Nombre de tables dans la base de données ?",
-            "en": "[Optional] Number of tables in the database?"
-        },
-        "desc": {
-            "fr": "Si vous ne savez pas, répondez 1.",
-            "en": "If you don't know, answer 1."
-        },
-        "min": 1,
-        "max": 30,
-        "step": 1,
-        "price": 75
-    },
-    {
-        "qid": "0.1.2.2.2.1.2",
+        "qid": "0.1.1.2.3.1.1",
         "type": "button",
         "q": {
             "fr": "Les utilisateurs peuvent-ils créer un compte ?",
@@ -153,7 +161,7 @@
             {"text": {
                 "fr": "Oui",
                 "en": "Yes"
-            }, "price": 1000},
+            }, "price": [1500,4000]},
             {"text": {
                 "fr": "Non",
                 "en": "No"
